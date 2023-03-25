@@ -28,24 +28,23 @@ void make_adj() {
 }
 
 int solve(int node) {
-  set<int> s;
+  priority_queue<int,vector<int>,greater<int>> q;
   int size=adj[node].size(), curr_n=node, ctr=0;
   fore(i,0,size) {
-    s.insert(adj[node][i]);
+    q.push(adj[node][i]);
   }
-  while(!s.empty()) {
-    auto p = s.upper_bound(node);
-    curr_n = *p;
+  while(!q.empty()) {
+    curr_n=q.top();
+    while(q.top()==curr_n && q.size()>0)
+      q.pop();
     visited[curr_n]=true;
-    s.erase(curr_n);
     size=adj[curr_n].size();
     fore(i,0,size) {
       if(adj[curr_n][i]>curr_n)
-        s.insert(adj[curr_n][i]);
+        q.push(adj[curr_n][i]);
     }
     ++ctr;
   }
-
   return ctr;
 }
 
