@@ -14,27 +14,32 @@ typedef pair<ll,ll> ii;
 
 const int MAXN = 105;
 const int MAXV = 1e5+10;
-int n;
+ll n,w;
 ll dp[MAXN][MAXV];
 ii a[MAXN];
 
-ll f(ll x) {
-	if(x>n) return 1e9;
-	if(x==n) return 0;
-	if(dp[x]>=0)
-		return dp[x];
-	dp[x]=min(f(x+1)+abs(a[x]-a[x+1]),f(x+2)+abs(a[x]-a[x+2]));
-	return dp[x];
+ll f(ll x, ll v) {
+	if(v<0) return 1e18;
+	if(x>n && v>0) return 1e18;
+	if(x>n && v==0) return 0;
+	if(dp[x][v]>=0)
+		return dp[x][v];
+	dp[x][v]=min(f(x+1,v),f(x+1,v-a[x].snd)+a[x].fst);
+	return dp[x][v];
 }
 
 int main(){FIN;
 	mset(dp,-1);
-	cin>>n;
+	cin>>n>>w;
 	fore(i,0,n) cin>>a[i].fst>>a[i].snd;
 	n--;
 
-	ll ans = f(0);
-	cout<<ans;
+	for(int i=1e5; i>=0; --i) {
+		if(f(0,i)<=w) {
+			cout<<i;
+			break;
+		}
+	}
 
 	return 0;
 }
