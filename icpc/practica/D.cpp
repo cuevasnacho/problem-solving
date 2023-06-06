@@ -8,18 +8,10 @@ typedef long long ll;
 typedef unsigned long long ull;
 
 int main(void){FIN;
-    int n; cin>>n;
-    set<string> st;
-    string s;
-    fore(i,0,n) {
-        cin>>s;
-        if(st.find(s)!=st.end()) {
-            cout<<"YES\n";
-        } else {
-            cout<<"NO\n";
-            st.insert(s);
-        }
-    }
-
+    ll n, m; cin >> n >> m;
+    ll minn = (n%m)*(((n/m)+1)*(n/m))/2;
+    ll minn2 = (m-(n%m))*(n/m)*((n/m)-1)/2;
+    ll max = (n-m+1)*(n-m)/2;
+    cout << minn+minn2 << " " << max << "\n";
     return 0;
 }

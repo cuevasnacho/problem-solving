@@ -8,18 +8,10 @@ typedef long long ll;
 typedef unsigned long long ull;
 
 int main(void){FIN;
-    int n; cin>>n;
-    set<string> st;
-    string s;
-    fore(i,0,n) {
-        cin>>s;
-        if(st.find(s)!=st.end()) {
-            cout<<"YES\n";
-        } else {
-            cout<<"NO\n";
-            st.insert(s);
-        }
-    }
+    ll n; cin>>n;
+    if(n%2) cout<<0;
+    else if(n%4) cout<<n/4;
+    else cout<<n/4-1;
 
     return 0;
 }
