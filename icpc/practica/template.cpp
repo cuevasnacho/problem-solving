@@ -11,19 +11,9 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
-
-int n,m
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
-	}
+	
 
 	return 0;
 }

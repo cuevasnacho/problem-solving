@@ -11,18 +11,23 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
 
-int n,m
+const int MOD = 1e9+7;
+const int MAXN = 2*1e5+5;
+
+ll fact[MAXN];
+
+void f() {
+	fact[0]=1;
+	fore(i,1,MAXN) fact[i]=(fact[i-1]*i)%MOD;
+}
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
+	int t; cin>>t;
+	f();
+	while(t--) {
+		int n; cin>>n;
+		cout<<fact[2*n]<<'\n';
 	}
 
 	return 0;

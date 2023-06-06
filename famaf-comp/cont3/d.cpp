@@ -13,45 +13,56 @@ typedef long long ll;
 typedef pair<int,int> ii;
 
 const int MAXN = 64;
-int n;
+int n, mn=1e5;
 string s[MAXN];
 ii cas[4] = {{0,1},{1,0},{-1,0},{0,-1}};
 
-vector<pair<int,int> > g[MAXN];  // u->[(v,cost)]
-ll dist[MAXN];
-void dijkstra(int x){
-	memset(dist,-1,sizeof(dist));
-	priority_queue<pair<ll,int> > q;
-	dist[x]=0;q.push({0,x});
-	while(!q.empty()){
-		x=q.top().snd;ll c=-q.top().fst;q.pop();
-		if(dist[x]!=c)continue;
-		fore(i,0,g[x].size()){
-			int y=g[x][i].fst; ll c=g[x][i].snd;
-			if(dist[y]<0||dist[x]+c<dist[y])
-				dist[y]=dist[x]+c,q.push({-dist[y],y});
+bool vis[MAXN][MAXN];
+vector<ii> beg;
+
+bool valid(int i, int j) {
+	return i<n && j<n && i>=0 && j>=0 && s[i][j]=='0';
+}
+
+void dfs1(int x, int y) {
+	vis[x][y]=1;
+	beg.pb({x,y});
+	for (ii p:cas) {
+		int i=p.fst+x, j=p.snd+y;
+		if(valid(i,j) & !vis[i][j]) {
+			dfs1(i,j);
 		}
 	}
 }
 
-bool valid(ii p) {
-	return p.fst<n && p.snd<n && p.fst>=0 && p.snd>=0;
-}
-
-void parse() {
-	fore(i,0,n)fore(j,0,n) if(s[i][j]=='0') {
-		fore(k,0,4) if(valid(cas[k])) {
-			if(s[i][j]=='0')
+void dfs2(int x, int y) {
+	vis[x][y]=1;
+	fore(k,0,beg.size()) {
+		int formulita=(beg[k].first-x)*(beg[k].first-x)+(beg[k].snd-y)*(beg[k].snd-y);
+		mn=min(mn,formulita);
+	}
+	for (ii p:cas) {
+		int i=p.fst+x, j=p.snd+y;
+		if(valid(i,j) & !vis[i][j]) {
+			dfs2(i,j);
 		}
 	}
 }
 
 int main(){FIN;
 	cin>>n;
-	ii r1,r2;
-	cin>>r1.fst>>r1.snd>>r2.fst>>r2.snd;
-
+	int r1,c1,r2,c2;
+	cin>>r1>>c1>>r2>>c2;
+	r1--;c1--;r2--;c2--;
 	fore(i,0,n) cin>>s[i];
+
+	dfs1(r1,c1);
+	if(vis[r2][c2])
+		cout<<0;
+	else {
+		dfs2(r2,c2);
+		cout<<mn<<'\n';
+	}
 
 	return 0;
 }

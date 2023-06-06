@@ -10,19 +10,35 @@
 #define FIN ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 using namespace std;
 typedef long long ll;
-typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
-
-int n,m
+typedef pair<ll,ll> ii;
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
+	int t; cin>>t;
+	while(t--) {
+		int n; cin>>n;
+		vector<set<ll>> a (n);
+		vector<int> sum (n,0);
+		fore(i,0,n) {
+			ll p,q; cin>>p>>q; p--;
+			a[p].insert(q);
+		}
+
+		ll ans=0, x=0;
+		fore(i,0,n) {
+			while(a[i].size()) {
+				auto p = *(a[i].rbegin());
+				a[i].erase(p);
+				ans+=p;
+				x++;
+				sum[i]++;
+				if(i+1<=x) {
+					break;
+				}
+			}
+			x-=sum[i];
+		}
+
+		cout<<ans<<'\n';
 	}
 
 	return 0;

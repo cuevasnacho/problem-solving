@@ -10,20 +10,20 @@
 #define FIN ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 using namespace std;
 typedef long long ll;
-typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
 
-int n,m
+#define N 10
+#define M 4
+
+int a[] = {1, 1, 4, 4, 5, 5, 7, 8, 9, 10};
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
+	int l=0, r=N-1;
+	while(l<=r) {
+		int k=(l+r)/2;
+		if(a[k]>M) r=k-1; 	// si existe M, con > devuelve el indice del
+		else l=k+1;			// ultimo M, con >= el anterior al primer M
 	}
+	cout<<r<<'\n';
 
 	return 0;
 }

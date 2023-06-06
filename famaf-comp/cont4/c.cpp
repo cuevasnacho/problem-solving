@@ -11,19 +11,31 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
 
-int n,m
+const int MAXN = 2*1e5+10;
+int n;
+ll dp[MAXN];
+ll a[MAXN];
+
+ll f(ll x) {
+	if(x>n) return 0;
+	if(dp[x]>=0)
+		return dp[x];
+	dp[x]=f(x+a[x])+a[x];
+	return dp[x];
+}
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
-	}
+	int t; cin>>t;
+	while(t--) {
+		mset(dp,-1);
+		cin>>n;
+		fore(i,0,n) cin>>a[i];
+		n--;
 
+		ll ans=0;
+		fore(i,0,n+1) ans=max(ans,f(i));
+		cout<<ans<<'\n';
+	}
 	return 0;
 }

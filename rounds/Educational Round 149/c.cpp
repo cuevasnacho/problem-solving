@@ -11,18 +11,24 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
-	
-const int MAXN = 2*1e5+10;
-
-int n,m
 
 int main(){FIN;
-	cin>>n>>m;
-	fore(i,0,m) {
-		int u,v,w; cin>>u>>v>>w;
-		u--;v--;
-		g[u].pb({v,w});
-		g[v].pb({u,w});
+	int t; cin>>t;
+	while(t--) {
+		string s; cin>>s;
+		char c='?';
+		if(s[0]==c) {
+			cout<<'0';
+			c='0';
+		} else {
+			cout<<s[0];
+			c=s[0];
+		}
+		fore(i,1,s.length()) {
+			if(s[i]!='?') c=s[i];
+			cout<<c;
+		}
+		cout<<'\n';
 	}
 
 	return 0;
